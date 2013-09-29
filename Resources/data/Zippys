@@ -1,0 +1,62 @@
+# ************************************************************
+# Sequel Pro SQL dump
+# Version 4004
+#
+# http://www.sequelpro.com/
+# http://code.google.com/p/sequel-pro/
+#
+# Host: 127.0.0.1 (MySQL 5.5.29)
+# Database: Zippys
+# Generation Time: 2013-04-16 07:09:43 +0000
+# ************************************************************
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+# Dump of table Products
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Products`;
+
+CREATE TABLE `Products` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` text CHARACTER SET utf8 NOT NULL,
+  `price` float NOT NULL DEFAULT '0',
+  `groupsSpotlight` tinyint(1) NOT NULL DEFAULT '0',
+  `groupsFeatured` tinyint(1) NOT NULL DEFAULT '0',
+  `groupsCategory` tinyint(1) NOT NULL DEFAULT '0',
+  `descShort` mediumint(100) NOT NULL,
+  `descLong` longtext NOT NULL,
+  `imgsMain` text NOT NULL,
+  `imgsThumb` text NOT NULL,
+  `imgsSpotlight` text NOT NULL,
+  `optionsSet` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `Products` WRITE;
+/*!40000 ALTER TABLE `Products` DISABLE KEYS */;
+
+INSERT INTO `Products` (`id`, `name`, `price`, `groupsSpotlight`, `groupsFeatured`, `groupsCategory`, `descShort`, `descLong`, `imgsMain`, `imgsThumb`, `imgsSpotlight`, `optionsSet`)
+VALUES
+	(1,'Magical Unicorn',999.99,1,0,0,0,'<p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p><p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Etiam porta sem malesuada magna mollis euismod.</p>','http://your-domain.com/path/to/main_img.png','http://your-domain.com/path/to/thumb.png','http://your-domain.com/path/to/spotlight_img.png',NULL),
+	(2,'Pink Unicorn',999.99,1,0,0,0,'<p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p><p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Etiam porta sem malesuada magna mollis euismod.</p>','http://your-domain.com/path/to/main_img.png','http://your-domain.com/path/to/thumb.png','http://your-domain.com/path/to/spotlight_img.png',NULL);
+
+/*!40000 ALTER TABLE `Products` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
