@@ -4,52 +4,60 @@ exports.createView = function() {
 			barColor     : '#000000',
 			top			 : 0,
 			bottom		 : '50dp'
-		}),
-		buttons = [{
+	});
+	var	buttons = [{
 			title   : "Checkout",
 			enabled : false
-		}],
-		checkoutButton = Ti.UI.createButtonBar({
+	}];
+		
+	var	checkoutButton = Ti.UI.createButtonBar({
 			labels          : buttons,
 			backgroundColor : '#063',
 			style           : Ti.UI.iPhone.SystemButtonStyle.PLAIN,
 			height          : 30
-		}),
-		table = Ti.UI.createTableView({
+	});
+	
+	var	table = Ti.UI.createTableView({
 			allowsSelectionDuringEditing : false,
 			allowsSelection              : false,
 			editable                     : true,
 			width                        : Ti.UI.FILL,
 			bottom                       : 44,
 			top                          : 0
-		}),
-		editButton = Ti.UI.createButton({
+	});
+	
+	var	editButton = Ti.UI.createButton({
 			systemButton : Ti.UI.iPhone.SystemButton.EDIT,
 			enabled      : false
-		}),
-		cancelButton = Ti.UI.createButton({
+	});
+	
+	var	cancelButton = Ti.UI.createButton({
 			title : "Done",
 			style : Ti.UI.iPhone.SystemButtonStyle.DONE
-		}),
-		emptyCartRow = Ti.UI.createTableViewRow({
+	});
+	
+	var	emptyCartRow = Ti.UI.createTableViewRow({
 			className : "empty_cart",
 			height    : Ti.UI.FILL
-		}),
-		emptyCartLbl = Ti.UI.createLabel({
+	});
+	
+	var	emptyCartLbl = Ti.UI.createLabel({
 			text      : "Your Cart Is Empty",
 			textAlign : "center",
 			font      : {
 				fontSize   : 16,
 				fontWeight : "bold"
 			}
-		}),
-		subTotalView = Ti.UI.createView({
+	});
+	
+	var	subTotalView = Ti.UI.createView({
 			width  : Ti.UI.FILL,
 			height : 44,
 			bottom : 0,
 			layout : "horizontal"
-		}),
-		subTotalLbl = Ti.UI.createLabel({
+	});
+	
+	var	subTotalLbl = Ti.UI.createLabel({
 			text      : "Subtotal: ",
 			textAlign : "right",
 			height    : 44,
@@ -58,8 +66,9 @@ exports.createView = function() {
 				fontSize   : 16,
 				fontWeight : "normal"
 			}
-		}),
-		subTotalAmountLbl = Ti.UI.createLabel({
+	});
+	
+	var	subTotalAmountLbl = Ti.UI.createLabel({
 			text      : "$0.00",
 			width     : 80,
 			height    : 44,
@@ -70,7 +79,7 @@ exports.createView = function() {
 				fontSize   : 16,
 				fontWeight : "bold"
 			}
-		});
+	});
 
 	// Add CartManager
 	var CartManager = require('core/CartManager');
@@ -267,54 +276,37 @@ exports.createView = function() {
 			bodyView.add(optionsList);
 		}
 
-		row.addEventListener(
-			"click",
-			function(e){
-				Ti.App.fireEvent(
-					"APP:SHOW_PRODUCT",
-					{ "itemId" : product.id, "tab" : "Cart" }
-				);
-			}
-		);
+		row.addEventListener("click",function(e){
+				Ti.App.fireEvent("APP:SHOW_PRODUCT",{ "itemId" : product.id, "tab" : "Cart" });
+		});
+		
 		return row;
-	}
+	};
 
 	/*
 	 * Bind Events & Handlers
 	 */
-	table.addEventListener(
-		"delete",
-		function(e){
-			CartWindow.removeItem(e.row.id, e.row.options);
-		}
-	);
+	table.addEventListener("delete",function(e){
+		CartWindow.removeItem(e.row.id, e.row.options);
+	});
 
-	Ti.App.addEventListener(
-		CartManager.events.change,
-		function(e){
-			if(table.editing){ return; }
-			if(!CartManager.hasItems()){
-				CartWindow.empty();
-			}
-			else{
-				setCartTable();
-				subTotalAmountLbl.text = "$" + CartManager.getSubTotal();
-			}
-		}
-	);
+	Ti.App.addEventListener(CartManager.events.change,function(e){
+		if(table.editing){ return; }
+		if(!CartManager.hasItems()){
+			CartWindow.empty();
+		}else{
+			setCartTable();
+			subTotalAmountLbl.text = "$" + CartManager.getSubTotal();
+		};
+	});
 
-	CartWindow.addEventListener(
-		"focus",
-		function(e){
+	CartWindow.addEventListener("focus",function(e){
 			//hack to disable buttonbar buttons (http://m54.co/1)
 			checkoutButton.labels = buttons;
 			setCartTable();
-		}
-	);
+	});
 
-	editButton.addEventListener(
-		"click",
-		function(e){
+	editButton.addEventListener("click",function(e){
 			CartWindow.setLeftNavButton(cancelButton);
 			CartWindow.setRightNavButton();
 			table.editing = true;
@@ -324,22 +316,16 @@ exports.createView = function() {
 				CartItems[i].qtyFld.value   = CartItems[i].quantity;
 				CartItems[i].qtyLbl.text    = "Qty:";
 			}
-		}
-	);
+	});
 
-	checkoutButton.addEventListener(
-		"click",
-		function(e){
+	checkoutButton.addEventListener("click",function(e){
 			if(e.index==0){// make sure button is clicked
 				var modal = require('ui/CheckoutModal').create();
 				modal.open();
 			}
-		}
-	);
+	});
 
-	cancelButton.addEventListener(
-		'click', 
-		function(e){
+	cancelButton.addEventListener('click', function(e){
 			var hasQuantityChanged = false,
 				i                  = 0,
 				len                = CartItems.length,
@@ -365,8 +351,7 @@ exports.createView = function() {
 			if(!hasQuantityChanged){
 				setCartTable();
 			}
-		}
-	);
+	});
 
 	return CartWindow;
 };

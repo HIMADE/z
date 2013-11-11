@@ -13,7 +13,7 @@ var acs = require('data/acs'),
 	
 	var self = Ti.UI.createView({
 		height: Ti.UI.Fill,
-		top: '50dp',
+		top: (globals.isiOS7) ? '70dp' : '50dp',
 		bottom: '0dp',
 		width: globals.devwidth,
 		backgroundColor:"#fff"
@@ -187,11 +187,11 @@ var load_order_online = function(){
 					}
 				);
 			}
-		}
+		};
 		if(typeof data==="string" && Util.isURL(data)){ Util.fetch(data, _callBack); }
 		else if(typeof data==="object" && data.products){ _callBack(data.products); }
 		else { return Ti.API.error("Store.load: Invalid url or object"); }
-	}
+	};
 
 	// show product detail window for different sections
 	Ti.App.addEventListener(

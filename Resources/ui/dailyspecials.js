@@ -14,7 +14,7 @@ exports.createView = function(){
 	};*/
 	
 	var holder = Ti.UI.createView({
-		top: '50dp'
+		top: (globals.isiOS7) ? '70dp' : '50dp'
 	});
 	
 	// Main Window of the Month View.
@@ -243,10 +243,11 @@ exports.createView = function(){
 		return e;
 	};
 	
-	
-	menuOption = function(a,b,c){
 	var myDate = new Date(2013,03,01).getTime();
 	//alert('myDate' + myDate);
+	
+	
+	menuOption = function(a,b,c){
 	var today = new Date(a,b,c).getTime();
 	var one_day = 1000 * 60 * 60 * 24;
 	var daysBetween = (today - myDate) / one_day;
@@ -254,7 +255,7 @@ exports.createView = function(){
 	var optionDay = ((daysBetween /6) % 1) * 6 ;
 	//alert(optionDay);
 	if (optionDay >= .50 && optionDay < 1){
-		optionDay = 1
+		optionDay = 1;
 	};
 	//var optionDayR = optionDay % 1;
 	var optionDayC = Math.round(optionDay);
@@ -305,7 +306,7 @@ exports.createView = function(){
 			cBg = '/images/cbg.png',
 			dBg = '/images/dbg.png',
 			eBg = '/images/ebg.png',
-			fBg = '/images/fbg.png'
+			fBg = '/images/fbg.png';
 	
 		
 		//get this month's days

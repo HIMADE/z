@@ -39,7 +39,7 @@ var _compareOptions = function(optionsA, optionsB){
 			"id"       : product.id,
 			"name"     : product.name,
 			"quantity" : 1,
-			"price"    : (product.price - 0).toFixed(2),
+			"price"    : (parseFloat(product.price) - 0).toFixed(2),
 			"options"  : (typeof options == "string") ? options : options.join(", ")
 			
 		});
@@ -62,7 +62,7 @@ exports.addItem = function(id, options, itemIndex, howMany){
 	if(indexToAdd===null){
 		product = _ProductManager.getProduct(id);
 		_addItem(product, options);
-		_subTotal += product.price;
+		_subTotal += parseFloat(product.price);
 	}
 	else{
 		item = _items[indexToAdd];
@@ -81,7 +81,7 @@ exports.setItemQuantity = function(id, options, quantity){
 
 	if(itemIndex===null){
 		return;
-	}
+	};
 
 	item = _items[itemIndex];
 
@@ -93,8 +93,8 @@ exports.setItemQuantity = function(id, options, quantity){
 	}
 	else if(quantity>item.quantity){
 		this.addItem(id, options, itemIndex, quantity - item.quantity);
-	}
-}
+	};
+};
 
 exports.removeItem = function(id, options, itemIndex, howMany){
 	var options = options || [],
@@ -165,20 +165,21 @@ exports.getCartData = function(){
 			"itemPrice"  : (item.price - 0).toFixed(2) * 1,
 			"totalPrice" : (item.price - 0).toFixed(2) * item.quantity
 		});
-	}
+	};
 	return cartData;
-}
+};
 
 exports.getRawCartData = function(){
 	return _items;
-}
+};
 
 exports.getSubTotal = function(){
+	//alert("subtotal" + _subTotal.toFixed(2));
 	return _subTotal.toFixed(2);
-}
+};
 
 exports.getItemCount = function(){
 	return _itemCount;
-}
+};
 
 exports.events = _events;

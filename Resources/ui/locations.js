@@ -6,7 +6,7 @@
 	exports.createView = function() {
 
 		var self = Ti.UI.createView({
-			top : '50dp',
+			top: (globals.isiOS7) ? '70dp' : '50dp',
 			backgroundColor : '#fff'
 
 		});
@@ -26,14 +26,15 @@
 
 				var tvr = Ti.UI.createTableViewRow({
 					height : '150dp',
-					name: location.name
+					name: location.name,
+					location: location
 				});
 				
 				var iv = Ti.UI.createImageView({
 					image: location.photo,
-					height: Ti.UI.FILL,
+					height: '150dp',
 					width: Ti.UI.FILL
-				})
+				});
 				
 				tvr.add(iv);
 
@@ -50,6 +51,7 @@
 					text : location.name,
 					color: 'white',
 					font : {
+						fontFamily : (globals.os == 'android') ? 'Exo-Regular' : 'Exo',
 						fontSize : '14dp',
 						fontWeight : 'bold'
 					},
@@ -67,7 +69,10 @@
 		};
 		
 		tv.addEventListener('click', function(e){
-			alert('you clicked'+ e.rowData.name);
+			var LocationsDetail = require('/ui/locations/locationsDetail');
+			var locationsDetail = new LocationsDetail(e.rowData.location);
+			locationsDetail.open({animated: true});
+			//alert('you clicked'+ e.rowData.name);
 		});
 
 		Ti.App.addEventListener('load_locations', function() {

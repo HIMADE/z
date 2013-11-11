@@ -32,23 +32,25 @@ var PayPalConts = {
 
 exports.create = function(){
 	
-	var total = CartManager.getSubTotal(),
-		checkoutWin = Ti.UI.createWindow({
+	var total = CartManager.getSubTotal();
+	var	checkoutWin = Ti.UI.createWindow({
 			barColor        : "#000",
 			title           : "Checkout",
 			backgroundColor : "#fff",
 			layout          : "vertical"
-		}),
-		checkoutLbl = Ti.UI.createLabel({
+	});
+	
+	var	checkoutLbl = Ti.UI.createLabel({
 			text      : "Total: $" + total,
 			textAlign : "center",
 			height    : 30,
 			top       : 100,
 			color     : "#000"
-		}),
-		cartData  = CartManager.getCartData(),
-		paypalBtn = getPayPalButton(parseFloat(CartManager.getSubTotal()), cartData),
-		cancelButton;
+	});
+	
+	var	cartData  = CartManager.getCartData();
+	var	paypalBtn = getPayPalButton(parseFloat(CartManager.getSubTotal()), cartData);
+	var	cancelButton;
 
 	if(Util.osname==='iphone'){
 		cancelButton = Ti.UI.createButton({
@@ -56,76 +58,54 @@ exports.create = function(){
 		});
 		checkoutWin.setLeftNavButton(cancelButton);
 
-		cancelButton.addEventListener(
-			'click',
-			function(){
-				checkoutWin.close();
-			}
-		);
-	}
+		cancelButton.addEventListener('click',function(){
+			checkoutWin.close();
+		});
+	};
 	checkoutWin.add(paypalBtn);
 	checkoutWin.add(checkoutLbl);
 
-	paypalBtn.addEventListener(
-		'paymentCancelled',
-		function(e) {
+	paypalBtn.addEventListener('paymentCancelled',function(e) {
 			ProcessOrder.cancelled(cartData);
 			checkoutWin.close();
-		}
-	);
+	});
 	
-	paypalBtn.addEventListener(
-		'paymentSuccess',
-		function(e) {
+	paypalBtn.addEventListener('paymentSuccess',function(e) {
 			CartManager.empty();
 			checkoutWin.close();
 			ProcessOrder.success(cartData, e.transactionID);
-		}
-	);
-	paypalBtn.addEventListener(
-		'paymentError',
-		function(e) {
+	});
+	
+	paypalBtn.addEventListener('paymentError',function(e) {
 			ProcessOrder.failed(cartData, e.errorCode, e.errorMessage);
 			alert(e.errorMessage);
 			checkoutWin.close();
-		}
-	);
-	paypalBtn.addEventListener(
-		'buttonDisplayed',
-		function () {
-			setTimeout(
-				function(){
-					if(LoadingIndicator.isOpen()){
-						LoadingIndicator.hide();
+	});
+	
+	paypalBtn.addEventListener('buttonDisplayed',function () {
+		setTimeout( function(){
+					if(LoadingIndicator.isOpen()){ LoadingIndicator.hide();
 					}
-				}, 1000
-			);
-		}
-	);
-	paypalBtn.addEventListener(
-		'buttonError',
-		function (e) {
+				}, 1000);
+	});
+	
+	paypalBtn.addEventListener('buttonError',function (e) {
 			ProcessOrder.failed(cartData, e.errorCode, e.errorMessage);
 			alert(e.errorMessage);
-			checkoutWin.close();		}
-	);
+			checkoutWin.close();		
+	});
 
-	checkoutWin.addEventListener(
-		"open",
-		function(e){
+	checkoutWin.addEventListener("open",function(e){
 			LoadingIndicator.show();
-			setTimeout(
-				function(){
+			setTimeout(function(){
 					if(LoadingIndicator.isOpen()){
 						LoadingIndicator.hide();
 					}
-				}, 4000
-			);
-		}
-	);
+				}, 4000); //End of setTime
+	});
 
 	return checkoutWin;
-}
+};
 
 /*
  * Create PayPal Button object
