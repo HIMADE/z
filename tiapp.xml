@@ -4,11 +4,11 @@
         <target device="tizen">false</target>
         <target device="mobileweb">false</target>
         <target device="iphone">true</target>
-        <target device="ipad">true</target>
+        <target device="ipad">false</target>
         <target device="android">true</target>
         <target device="blackberry">false</target>
     </deployment-targets>
-    <sdk-version>3.1.1.v20130615160957</sdk-version>
+    <sdk-version>3.1.3.GA</sdk-version>
     <property name="acs-oauth-secret-production" type="string">ZTKyGvK4F1Og0948AtFir51EJswFp9X4</property>
     <property name="acs-oauth-key-production" type="string">ZGuKNCws9yQ2ktTlQTBZ5UE5LzoC3tSM</property>
     <property name="acs-api-key-production" type="string">X4C0dqsQPerYXyAp5Oo4nEmJjKI4azVu</property>
@@ -46,6 +46,8 @@
     <ios>
         <plist>
             <dict>
+                <key>UIStatusBarStyle</key>
+                <string>UIStatusBarStyleLightContent</string>
                 <key>UISupportedInterfaceOrientations</key>
                 <array>
                     <string>UIInterfaceOrientationPortrait</string>
