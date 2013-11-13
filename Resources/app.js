@@ -1,3 +1,5 @@
+/**Notes to check push from iMac**/
+
 Ti.include('core/globals.js');
 
 //self executing function to eliminate globals.
