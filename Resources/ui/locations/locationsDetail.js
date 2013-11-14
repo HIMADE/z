@@ -51,21 +51,33 @@ function CreateWindow(_l){
 	cancelButtonContainer.add(cancelButton);
 
 	cancelButtonContainer.addEventListener('click', function() {
+		iv = null;
+		headerLabel = null;
+		iOS7Spacer = null;
+		header = null;
 		self.close({animated : true});
+	});
+	
+	var scrollView = Ti.UI.createScrollView({
+		contentHeight:'auto',
+		width: Ti.UI.FILL,
+		height: Ti.UI.FILL,
+		layout: ''
 	});
 	
 	var iv = Ti.UI.createImageView({
 					top: '10dp',
 					image: _l.photo,
-					height: '150dp',
-					width: Ti.UI.FILL
+					height: '150dp'
 	});
+	
+	scrollView.add(iv);
 	
 	if(globals.isiOS7) header.add(iOS7Spacer);
 	header.add(cancelButtonContainer);
 	header.add(headerLabel);
 	self.add(header);
-	self.add(iv);
+	self.add(scrollView);
 	
 	return self;
 };
