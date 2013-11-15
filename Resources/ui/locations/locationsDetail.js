@@ -60,18 +60,69 @@ function CreateWindow(_l){
 	
 	var scrollView = Ti.UI.createScrollView({
 		contentHeight:'auto',
-		width: Ti.UI.FILL,
+		contentWidth: globals.devwidth,
 		height: Ti.UI.FILL,
-		layout: ''
+		layout: 'vertical'
 	});
 	
 	var iv = Ti.UI.createImageView({
-					top: '10dp',
 					image: _l.photo,
-					height: '150dp'
+					height: '150dp',
+					width: Ti.UI.FILL
 	});
 	
 	scrollView.add(iv);
+	
+	var midMenu = Ti.UI.createView({
+		height: '50dp',
+		width: Ti.UI.FILL,
+		layout: 'horizontal',
+		backgroundColor : "#930001"
+	});
+	
+	var mm1 = Ti.UI.createLabel({
+	color: 'white',
+	text: fontawesome.icon('icon-info-sign'),
+	font : { fontSize : '24dp',
+		fontFamily :
+		fontawesome.fontfamily()
+	},
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER ,
+	width: '25%',
+	height: Ti.UI.FILL
+	});
+	
+	midMenu.add(mm1);
+	
+	var mm2 = Ti.UI.createLabel({
+	color: 'white',
+	text: fontawesome.icon('icon-camera'),
+	font : { fontSize : '24dp',
+		fontFamily :
+		fontawesome.fontfamily()
+	},
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER ,
+	width: '25%',
+	height: Ti.UI.FILL
+	});
+	
+	midMenu.add(mm2);
+	
+	var mm3 = Ti.UI.createLabel({
+	color: 'white',
+	text: fontawesome.icon('icon-map-marker'),
+	font : { fontSize : '32dp',
+		fontFamily :
+		fontawesome.fontfamily()
+	},
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER ,
+	width: '25%',
+	height: Ti.UI.FILL
+	});
+	
+	midMenu.add(mm3);
+	
+	scrollView.add(midMenu);
 	
 	if(globals.isiOS7) header.add(iOS7Spacer);
 	header.add(cancelButtonContainer);
