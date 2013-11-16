@@ -7,6 +7,7 @@ var fontawesome = require('lib/IconicFont').IconicFont({
 function CreateWindow(_l){
 	var self = Ti.UI.createWindow({
 		modal: true,
+		navBarHiddden: true,
 		backgroundColor: 'white',
 		layout: 'vertical'
 	});
