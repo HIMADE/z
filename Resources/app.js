@@ -71,8 +71,8 @@ Ti.include('core/globals.js');
 	Ti.App.addEventListener('toggle_slider', function() {
 		toggle_slider();
 	});
-
-	Ti.App.addEventListener('show_promotions', function() {
+	
+	Ti.App.addEventListener('show_promotions', function ShowPromotions() {
 		promotionsView.show();
 		if (locations_view_loaded) {
 			locationsView.hide();
@@ -85,7 +85,7 @@ Ti.include('core/globals.js');
 		};
 	});
 
-	Ti.App.addEventListener('show_daily_specials', function() {
+	Ti.App.addEventListener('show_daily_specials', function ShowDailySpecials() {
 		Ti.API.info('Daily Specials Called');
 		if (daily_specials_loaded === false) {
 			dailySpecialsView = DailySpecialsView.createView();
@@ -104,7 +104,7 @@ Ti.include('core/globals.js');
 		};
 	});
 
-	Ti.App.addEventListener('show_order_online', function() {
+	Ti.App.addEventListener('show_order_online', function ShowOrderOnline() {
 		if (order_online_loaded === false) {
 			orderOnlineView = OrderOnlineView.createView();
 			view2.add(orderOnlineView);
@@ -122,7 +122,7 @@ Ti.include('core/globals.js');
 		};
 	});
 
-	Ti.App.addEventListener('show_locations', function() {
+	Ti.App.addEventListener('show_locations', function ShowLocations() {
 		if (locations_view_loaded === false) {
 			locationsView = LocationsView.createView();
 			locations_view_loaded = true;
@@ -139,6 +139,8 @@ Ti.include('core/globals.js');
 			dailySpecialsView.hide();
 		};
 	});
+
+	
 
 	win.add(require('ui/mainmenu').createView());
 	win.add(view2);
